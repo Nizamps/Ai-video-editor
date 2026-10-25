@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var nativeFetch = window.fetch ? window.fetch.bind(window) : undefined;
+          if (nativeFetch) {
+            var descriptor = {
+              configurable: true,
+              enumerable: true,
+              get: function () {
+                return nativeFetch;
+              },
+              set: function (fn) {
+                if (typeof fn === 'function') {
+                  nativeFetch = fn;
+                }
+              },
+            };
+            try {
+              if (typeof Window !== 'undefined' && Window.prototype) {
+                Object.defineProperty(Window.prototype, 'fetch', descriptor);
+              }
+            } catch (_e1) {}
+            Object.defineProperty(window, 'fetch', descriptor);
+          }
+        } catch (_e2) {}
+
+        window.addEventListener(
+          'error',
+          function (event) {
+            var msg = String((event && event.message) || '');
+            var file = String((event && event.filename) || '');
+            if (
+              msg.indexOf('Cannot set property fetch') !== -1 ||
+              file.indexOf('chrome-extension://') === 0
+            ) {
+              event.stopImmediatePropagation();
+              event.preventDefault();
+            }
+          },
+          true
+        );
+      })();
+    </script>
+    <title>ClipForge AI — Edit at the speed of imagination</title>
+    <meta name="description" content="Professional browser-based multitrack AI video editor with real-time canvas compositing, keyframe animation, effects, transitions, and natural-language AI timeline editing." />
+    <meta property="og:title" content="ClipForge AI — Edit at the speed of imagination" />
+    <meta property="og:description" content="Professional browser-based multitrack AI video editor with real-time canvas compositing, keyframe animation, effects, transitions, and natural-language AI timeline editing." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-[#0B0D12] text-[#F1F5F9] antialiased selection:bg-indigo-500/30 selection:text-indigo-200 overflow-hidden">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

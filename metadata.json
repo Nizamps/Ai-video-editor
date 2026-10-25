@@ -1,0 +1,6 @@
+{
+  "name": "ClipForge AI",
+  "description": "Edit at the speed of imagination. Professional browser-based multitrack AI video editor with real-time canvas compositing, keyframe animation, effects, transitions, and natural-language AI timeline editing.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
